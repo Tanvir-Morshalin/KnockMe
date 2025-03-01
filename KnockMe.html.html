@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnockMe - Find Mentors & Get Personalized Career Guidance</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-color: #f97316;
+            --dark-color: #1f2937;
+            --light-color: #f3f4f6;
+            --gray-color: #6b7280;
+            --success-color: #10b981;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #fff;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            position: absolute;
+            width: 100%;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 600px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af, #7e22ce);
+            color: white;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff10' fill-opacity='0.1' d='M0,288L48,272C96,256,192,224,288,197.3C384,171,480,149,576,165.3C672,181,768,235,864,250.7C960,267,1056,245,1152,208C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") no-repeat bottom;
+            background-size: cover;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            margin-top: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+            border: 2px solid var(--secondary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #ea580c;
+            border-color: #ea580c;
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-header p {
+            color: var(--gray-color);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Problem Section */
+        .problems {
+            background-color: var(--light-color);
+        }
+        
+        .problems-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .problem-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .problem-card h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+        
+        .problem-card p {
+            color: var(--gray-color);
+        }
+        
+        /* Solution Section */
+        .solutions-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .solution-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .solution-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(37, 99, 235, 0.1);
+            border-radius: 50%;
+            color: var(--primary-color);
+            font-size: 32px;
+        }
+        
+        .solution-card h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            background-color: var(--light-color);
+        }
+        
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .step-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: center;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .step-card h3 {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        /* Mentors Section */
+        .mentors-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .mentor-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .mentor-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .mentor-image {
+            height: 220px;
+            overflow: hidden;
+            background-color: #f0f9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cartoon-mentor {
+            width: 180px;
+            height: 180px;
+        }
+        
+        .mentor-info {
+            padding: 20px;
+        }
+        
+        .mentor-info h3 {
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+        
+        .mentor-position {
+            color: var(--gray-color);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .mentor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 10px;
+        }
+        
+        .mentor-tag {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .footer-about h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .footer-about p {
+            color: #bbb;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h4 {
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-links h4::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background-color: var(--secondary-color);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links ul li a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+        }
+        
+        .footer-bottom {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #bbb;
+            font-size: 14px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Knock<span>Me</span></div>
+        <div class="nav-links">
+            <a href="#problems">Challenges</a>
+            <a href="#solutions">Solutions</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#mentors">Mentors</a>
+            <a href="#cta">Join Now</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Find mentor & Get Personalized Advice to Upgrade Career</h1>
+            <p>KnockMe connects you with experienced mentors who provide ongoing, meaningful guidance to help you thrive in today's job market.</p>
+            <div class="btn-group">
+                <a href="#" class="btn btn-primary">Start Your Mentorship Journey</a>
+                <a href="#problems" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Problem Section -->
+    <section class="problems" id="problems">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Challenges You Face</h2>
+                <p>Students and freshers across Bangladesh encounter several obstacles on their path to professional success.</p>
+            </div>
+            <div class="problems-container">
+                <div class="problem-card">
+                    <h3>Traditional Education Is No Longer Enough</h3>
+                    <p>Degrees and certifications aren't enough to land a job in today's competitive market. Practical skills and industry insights are increasingly necessary.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Limited Access to Mentorship</h3>
+                    <p>Many students and freshers struggle to find the right mentors who can guide them in their career paths and provide valuable industry insights.</p>
+                </div>
+                <div class="problem-card">
+                    <h3>Geographical Barriers</h3>
+                    <p>Mentorship opportunities are often limited to those in Dhaka, leaving a gap for talented professionals in other regions of Bangladesh.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Solution Section -->
+    <section class="solutions" id="solutions">
+        <div class="container">
+            <div class="section-header">
+                <h2>Here's How KnockMe Makes a Difference</h2>
+                <p>Our platform bridges the gap between education and employment through personalized mentorship.</p>
+            </div>
+            <div class="solutions-container">
+                <div class="solution-card">
+                    <div class="solution-icon">🇧🇩</div>
+                    <h3>Mentors Who Understand the Local Market</h3>
+                    <p>Access professionals who have firsthand knowledge of Bangladesh's job market and hiring trends.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">🔄</div>
+                    <h3>Long-Term, Structured Mentorship</h3>
+                    <p>Get continuous support to develop your career over time—no one-time advice.</p>
+                </div>
+                <div class="solution-card">
+                    <div class="solution-icon">🌐</div>
+                    <h3>Mentorship Accessible Anywhere in Bangladesh</h3>
+                    <p>Whether you're in Dhaka, Chittagong, Sylhet, or any other part of Bangladesh, KnockMe makes mentorship accessible to all.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>How KnockMe Works</h2>
+                <p>Our simple process gets you connected with the right mentor in just a few steps.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Profile</h3>
+                    <p>Share your career goals, challenges, and aspirations to get matched with the right mentor.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Find a Mentor</h3>
+                    <p>Browse through a list of professionals who are ready to help guide your career.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Book Your Session</h3>
+                    <p>Easily schedule your first mentorship session at a time that works for you.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Get Ongoing Support</h3>
+                    <p>Build a continuous relationship with your mentor to ensure long-term career success.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Mentors Section -->
+    <section class="mentors" id="mentors">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our Expert Mentors</h2>
+                <p>Our mentors are industry professionals with extensive experience in their fields.</p>
+            </div>
+            <div class="mentors-container">
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <svg class="cartoon-mentor" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Female Mentor with Glasses -->
+                            <circle cx="100" cy="70" r="50" fill="#FFD8B6" />
+                            <ellipse cx="100" cy="135" rx="40" ry="50" fill="#F472B6" />
+                            <path d="M60 70 Q100 120 140 70" fill="none" stroke="#333" stroke-width="2" />
+                            <circle cx="80" cy="65" r="5" fill="#333" />
+                            <circle cx="120" cy="65" r="5" fill="#333" />
+                            <path d="M90 85 Q100 95 110 85" fill="none" stroke="#333" stroke-width="2" />
+                            <path d="M65 55 Q80 45 95 55" fill="none" stroke="#333" stroke-width="3" />
+                            <path d="M105 55 Q120 45 135 55" fill="none" stroke="#333" stroke-width="3" />
+                            <path d="M70 40 Q100 20 130 40" fill="#333" />
+                            <path d="M60 70 L60 100 M140 70 L140 100" fill="none" stroke="#FFD8B6" stroke-width="10" />
+                        </svg>
+                    </div>
+                    <div class="mentor-info">
+                        <h3>Rahima Khan</h3>
+                        <p class="mentor-position">Product Manager at TechBD</p>
+                        <p>Helping students navigate the product management landscape with practical insights.</p>
+                        <div class="mentor-tags">
+                            <span class="mentor-tag">Product</span>
+                            <span class="mentor-tag">Strategy</span>
+                            <span class="mentor-tag">UX</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <svg class="cartoon-mentor" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Male Mentor with Beard -->
+                            <circle cx="100" cy="70" r="50" fill="#F5CBA7" />
+                            <rect x="60" y="120" width="80" height="60" fill="#3B82F6" />
+                            <path d="M60 70 L60 120 M140 70 L140 120" fill="none" stroke="#F5CBA7" stroke-width="10" />
+                            <circle cx="80" cy="65" r="5" fill="#333" />
+                            <circle cx="120" cy="65" r="5" fill="#333" />
+                            <path d="M90 85 Q100 95 110 85" fill="none" stroke="#333" stroke-width="2" />
+                            <path d="M70 120 Q100 140 130 120" fill="#5E4534" />
+                            <path d="M70 40 Q100 20 130 40" fill="#333" />
+                            <rect x="85" y="100" width="30" height="10" fill="#5E4534" />
+                        </svg>
+                    </div>
+                    <div class="mentor-info">
+                        <h3>Farhan Ahmed</h3>
+                        <p class="mentor-position">Senior Software Engineer at GlobalTech</p>
+                        <p>Specializing in helping students build strong foundations in software development.</p>
+                        <div class="mentor-tags">
+                            <span class="mentor-tag">Engineering</span>
+                            <span class="mentor-tag">Web Dev</span>
+                            <span class="mentor-tag">Backend</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <svg class="cartoon-mentor" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Female Designer with Long Hair -->
+                            <path d="M60 120 Q100 140 140 120 L140 170 L60 170 Z" fill="#FF69B4" />
+                            <circle cx="100" cy="70" r="50" fill="#FFE0BD" />
+                            <path d="M60 70 L60 120 M140 70 L140 120" fill="none" stroke="#FFE0BD" stroke-width="10" />
+                            <path d="M140 70 Q160 100 140 130 Q180 150 140 170" fill="#8B4513" />
+                            <path d="M60 70 Q40 100 60 130 Q20 150 60 170" fill="#8B4513" />
+                            <circle cx="80" cy="65" r="5" fill="#333" />
+                            <circle cx="120" cy="65" r="5" fill="#333" />
+                            <path d="M90 85 Q100 95 110 85" fill="none" stroke="#333" stroke-width="2" />
+                            <path d="M70 50 Q100 30 130 50" fill="#8B4513" />
+                            <circle cx="100" cy="100" r="5" fill="#FF69B4" />
+                        </svg>
+                    </div>
+                    <div class="mentor-info">
+                        <h3>Samira Rahman</h3>
+                        <p class="mentor-position">UX Designer at CreativeSolutions</p>
+                        <p>Passionate about guiding the next generation of designers from all over Bangladesh.</p>
+                        <div class="mentor-tags">
+                            <span class="mentor-tag">Design</span>
+                            <span class="mentor-tag">UI/UX</span>
+                            <span class="mentor-tag">Research</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="mentor-card">
+                    <div class="mentor-image">
+                        <svg class="cartoon-mentor" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Data Scientist with Glasses -->
+                            <circle cx="100" cy="70" r="50" fill="#D2B48C" />
+                            <rect x="60" y="120" width="80" height="60" fill="#10B981" />
+                            <path d="M60 70 L60 120 M140 70 L140 120" fill="none" stroke="#D2B48C" stroke-width="10" />
+                            <path d="M65 65 L85 65 M115 65 L135 65" fill="none" stroke="#333" stroke-width="2" />
+                            <circle cx="75" cy="65" r="5" fill="#333" />
+                            <circle cx="125" cy="65" r="5" fill="#333" />
+                            <rect x="65" y="60" width="70" height="5" fill="#333" rx="2" />
+                            <path d="M90 85 Q100 95 110 85" fill="none" stroke="#333" stroke-width="2" />
+                            <path d="M70 40 Q100 25 130 40" fill="#333" />
+                            <circle cx="80" cy="140" r="8" fill="#FFFF00" />
+                            <circle cx="120" cy="140" r="8" fill="#FFFF00" />
+                        </svg>
+                    </div>
+                    <div class="mentor-info">
+                        <h3>Kamal Hossain</h3>
+                        <p class="mentor-position">Data Scientist at AnalyticsBD</p>
+                        <p>Helping students master data analysis and machine learning concepts with real-world projects.</p>
+                        <div class="mentor-tags">
+                            <span class="mentor-tag">Data</span>
+                            <span class="mentor-tag">ML/AI</span>
+                            <span class="mentor-tag">Analytics</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta" id="cta">
+        <div class="container">
+            <h2>Start Your Mentorship Journey Today!</h2>
+            <p>Take the first step toward upgrading your career with personalized guidance from experienced professionals who understand Bangladesh's unique job market.</p>
+            <div class="btn-group">
+                <a href="#" class="btn btn-secondary">Sign Up Now</a>
+                <a href="#" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-about">
+                    <h3>KnockMe</h3>
+                    <p>KnockMe is a mentorship platform designed to provide long-term, impactful mentorship for students and freshers across Bangladesh, with a special focus on those outside Dhaka.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">f</a>
+                        <a href="#" class="social-icon">in</a>
+                        <a href="#" class="social-icon">t</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#problems">Challenges</a></li>
+                        <li><a href="#solutions">Solutions</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#mentors">Mentors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 KnockMe. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
